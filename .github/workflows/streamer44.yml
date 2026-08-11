@@ -2,14 +2,14 @@ name: Record Streamer 4
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
   record_and_send:
     runs-on: ubuntu-latest
     concurrency:
-      group: streamer-1-recording
+      group: streamer-4-recording
       cancel-in-progress: false
 
     steps:
