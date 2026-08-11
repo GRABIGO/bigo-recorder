@@ -25,7 +25,7 @@ jobs:
       - name: Record Live Stream
         run: |
           # REEMPLAZA LA URL DE ABAJO CON LA DEL PRIMER STREAMER
-          URL="https://www.bigo.tv/AZ_Wil"
+          URL="https://www.bigo.tv/AZ_WIL"
           
           echo "Comprobando transmisión..."
           streamlink "$URL" best -o raw_video.mp4 \
