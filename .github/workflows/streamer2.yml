@@ -9,7 +9,7 @@ jobs:
   record_and_send:
     runs-on: ubuntu-latest
     concurrency:
-      group: streamer-1-recording
+      group: streamer-2-recording
       cancel-in-progress: false
 
     steps:
