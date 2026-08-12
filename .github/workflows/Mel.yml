@@ -3,17 +3,17 @@ name: Record Streamer 3
 on:
   schedule:
     - cron: '*/5 * * * *'
-  workflow_dispatch:
-  repository_dispatch:     
+  repository_dispatch:
     types: [trigger-streamer-3]
+  workflow_dispatch:
+
+concurrency:
+  group: streamer-3-recording
+  cancel-in-progress: true
 
 jobs:
   record_and_send:
     runs-on: ubuntu-latest
-    concurrency:
-      group: streamer-3-recording
-      cancel-in-progress: false
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
       - name: Record Live Stream
         run: |
           URL="https://www.bigo.tv/BA.Rinco"
-          
+
           echo "Comprobando transmisión..."
           streamlink "$URL" best -o raw_video.mp4 \
             --retry-streams 10 \
@@ -46,12 +46,12 @@ jobs:
           if [ -f raw_video.mp4 ] && [ $(stat -c%s "raw_video.mp4") -gt 10000000 ]; then
             echo "Procesando y dividiendo video en segmentos limpios..."
             ffmpeg -fflags +genpts -i raw_video.mp4 -c:v libx264 -preset ultrafast -crf 28 -c:a aac -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4
-            
+
             for file in output_*.mp4; do
               if [ -f "$file" ]; then
                 echo "Enviando $file a Telegram..."
                 curl -F chat_id="$CHAT_ID" \
-                     -F video=@"$file" \
+                     -F video="@$file" \
                      -F caption="🔴 Grabación finalizada (BA.Rinco): $file" \
                      https://api.telegram.org/bot$BOT_TOKEN/sendVideo
                 rm "$file"
