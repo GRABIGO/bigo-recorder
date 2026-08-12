@@ -2,11 +2,11 @@ name: Record TikTok Live - Solange
 
 on:
   repository_dispatch:
-    types: [trigger-tiktok-2]
+    types: [trigger-tiktok-1]
   workflow_dispatch:
 
 concurrency:
-  group: tiktok-2-recording
+  group: tiktok-1-recording
   cancel-in-progress: false
 
 jobs:
