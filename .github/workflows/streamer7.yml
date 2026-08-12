@@ -40,15 +40,15 @@ jobs:
           CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ -f raw_video.mp4 ] && [ $(stat -c%s "raw_video.mp4") -gt 10000000 ]; then
-            echo "Procesando y dividiendo video en segmentos..."
-            ffmpeg -i raw_video.mp4 -c copy -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4
+            echo "Procesando y dividiendo video en segmentos limpios..."
+            ffmpeg -fflags +genpts -i raw_video.mp4 -c copy -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4
             
             for file in output_*.mp4; do
               if [ -f "$file" ]; then
                 echo "Enviando $file a Telegram..."
                 curl -F chat_id="$CHAT_ID" \
                      -F video=@"$file" \
-                     -F caption="🔴 Parte enviada: $file" \
+                     -F caption="🔴 Grabación finalizada (MySophieB): $file" \
                      https://api.telegram.org/bot$BOT_TOKEN/sendVideo
                 rm "$file"
               fi
