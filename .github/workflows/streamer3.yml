@@ -38,7 +38,7 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-run: |
+        run: |
           if [ -f raw_video.mp4 ] && [ $(stat -c%s "raw_video.mp4") -gt 10000000 ]; then
             echo "Procesando y dividiendo video en segmentos..."
             ffmpeg -i raw_video.mp4 -c copy -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4
