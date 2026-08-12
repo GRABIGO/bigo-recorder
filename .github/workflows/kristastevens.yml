@@ -2,7 +2,7 @@ name: Record TikTok Live - Krista Stevens
 
 on:
   repository_dispatch:
-    types: [trigger-tiktok-1]
+    types: [trigger-tiktok-2]
   workflow_dispatch:
 
 concurrency:
