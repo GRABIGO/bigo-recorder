@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: tiktok-1-recording
+  group: tiktok-2-recording
   cancel-in-progress: false
 
 jobs:
