@@ -45,7 +45,8 @@ jobs:
         run: |
           if [ -f raw_video.mp4 ] && [ $(stat -c%s "raw_video.mp4") -gt 10000000 ]; then
             echo "Procesando y dividiendo video en segmentos limpios..."
-            ffmpeg -fflags +genpts -i raw_video.mp4 -c:v libx264 -preset ultrafast -crf 28 -c:a aac -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4            
+            ffmpeg -fflags +genpts -i raw_video.mp4 -c:v libx264 -preset ultrafast -crf 28 -c:a aac -f segment -segment_time 300 -reset_timestamps 1 output_%03d.mp4
+            
             for file in output_*.mp4; do
               if [ -f "$file" ]; then
                 echo "Enviando $file a Telegram..."
