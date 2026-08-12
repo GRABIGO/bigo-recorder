@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: bigo-8-recording
-  cancel-in-progress: false
+  group: streamer-8-recording
+  cancel-in-progress: true
 
 jobs:
   record_and_send:
