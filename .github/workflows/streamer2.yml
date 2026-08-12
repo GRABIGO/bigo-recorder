@@ -1,9 +1,11 @@
-name: Record Streamer 2
+name: Gabriela
 
 on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+  repository_dispatch:     
+    types: [trigger-streamer-2]
 
 jobs:
   record_and_send:
