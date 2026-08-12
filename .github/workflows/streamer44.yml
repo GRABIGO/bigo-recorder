@@ -1,4 +1,4 @@
-name: Record Streamer 5
+name: Record Streamer 4
 
 on:
   schedule:
@@ -9,7 +9,7 @@ jobs:
   record_and_send:
     runs-on: ubuntu-latest
     concurrency:
-      group: streamer-5-recording
+      group: streamer-4-recording
       cancel-in-progress: false
 
     steps:
@@ -24,7 +24,7 @@ jobs:
 
       - name: Record Live Stream
         run: |
-          URL="https://www.bigo.tv/BA.tih"
+          URL="https://www.bigo.tv/Eu_Mel"
           
           echo "Comprobando transmisión..."
           streamlink "$URL" best -o raw_video.mp4 \
