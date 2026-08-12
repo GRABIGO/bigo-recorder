@@ -24,7 +24,6 @@ jobs:
 
       - name: Record Live Stream
         run: |
-          # REEMPLAZA LA URL DE ABAJO CON LA DEL PRIMER STREAMER
           URL="https://www.bigo.tv/shir_dance"
           
           echo "Comprobando transmisión..."
@@ -42,15 +41,15 @@ jobs:
         run: |
           if [ -f raw_video.mp4 ] && [ $(stat -c%s "raw_video.mp4") -gt 10000000 ]; then
             echo "Procesando y dividiendo video..."
-            ffmpeg -i raw_video.mp4 -c copy -fs 1900M output_%03d.mp4
+            ffmpeg -i raw_video.mp4 -c copy -fs 45M output_%03d.mp4
             
             for file in output_*.mp4; do
               if [ -f "$file" ]; then
                 echo "Enviando $file a Telegram..."
-                curl -v -F chat_id="$CHAT_ID" \
-                     -F document=@"$file" \
-                     -F caption="🔴 Grabación Streamer 1 finalizada" \
-                     https://api.telegram.org/bot$BOT_TOKEN/sendDocument
+                curl -F chat_id="$CHAT_ID" \
+                     -F video=@"$file" \
+                     -F caption="🔴 Grabación finalizada: $file" \
+                     https://api.telegram.org/bot$BOT_TOKEN/sendVideo
                 rm "$file"
               fi
             done
