@@ -32,7 +32,9 @@ jobs:
           streamlink "$URL" best -o raw_video.mp4 \
             --retry-streams 10 \
             --retry-max 20 \
-            --retry-open 10 \
+            --retry-open 10 \            
+            --hls-live-restart \
+            --stream-segment-threads 2 \
             --stream-segment-timeout 60 \
             --stream-timeout 60 || true
 
