@@ -5,7 +5,7 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
   repository_dispatch:     
-    types: [trigger-streamer-4]
+    types: [trigger-tiktok-4]
 
 jobs:
   record_and_send:
