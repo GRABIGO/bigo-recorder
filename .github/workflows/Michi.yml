@@ -1,13 +1,15 @@
 name: Record TikTok Live - Michi
 
 on:
+  schedule:
+    - cron: '*/5 * * * *'
   repository_dispatch:
     types: [trigger-tiktok-4]
   workflow_dispatch:
 
 concurrency:
   group: tiktok-4-recording
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   record_and_send:
@@ -47,7 +49,7 @@ jobs:
                 echo "Enviando $file a Telegram..."
                 curl -F chat_id="$CHAT_ID" \
                      -F video="@$file" \
-                     -F caption="🔴 Grabación TikTok Live (@_miicch_) finalizada: $file" \
+                     -F caption="🔴 Grabación TikTok Live (Michi) finalizada: $file" \
                      https://api.telegram.org/bot$BOT_TOKEN/sendVideo
                 rm "$file"
               fi
