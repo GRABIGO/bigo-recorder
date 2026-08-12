@@ -29,7 +29,9 @@ jobs:
           URL="https://www.bigo.tv/Eu_Mel"
 
           echo "Comprobando transmisión..."
-          streamlink "$URL" best -o raw_video.mp4 \
+          streamlink --http-header "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+            --http-header "Referer=https://www.bigo.tv/" \
+            "$URL" best -o raw_video.mp4 \
             --retry-streams 10 \
             --retry-max 20 \
             --retry-open 10 \
